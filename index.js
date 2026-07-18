@@ -48,6 +48,9 @@ button.addEventListener("click", function(){
 
     const summary = document.createElement(ul);
     data.features.forEach(function (alert){
-
-    })
+      const li = document.createElement("li");
+      li.textContent = alert.propertise.headline;
+      FileList.appendChild(li);
+    });
+    display.appendChild(list);
   }
