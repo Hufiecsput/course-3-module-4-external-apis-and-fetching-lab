@@ -5,13 +5,13 @@ const weatherApi = "https://api.weather.gov/alerts/active?area="
 
 const input = document.getElementById("state-input");
 const button = document.getElementById("fetch-alerts");
-const displayAlerts = document.getElementById("alerts-display");
+const  alertDisplay = document.getElementById("alerts-display");
 const errorDiv = document.getElementById("error-message");
 
 button.addEventListener("click", function(){
   const state = input.value.trim().toUpperCase();
   if(!state) {
-    errorDiv.textContent = "Enter abbriviated name:"
+    errorDiv.textContent = "Enter abbreviated name:"
     errorDiv.classList.remove("hidden");
     return;
   }
@@ -22,9 +22,9 @@ button.addEventListener("click", function(){
 
     try {
 
-       const response = await await fetch(weatherApi + state);
+       const response = await fetch(weatherApi + state);
         if (!response.ok){
-          throw new Error ("An error occured.")
+          throw new Error ("An error occurred.");
         }
          
         const data = await response.json();
@@ -41,11 +41,11 @@ button.addEventListener("click", function(){
   }
 
  function displayAlerts(data) {
-  alertsDisplay.innerHTML = "";
+  alertDisplay.innerHTML = "";
 
   const summary = document.createElement("h2");
   summary.textContent = `${data.title}: ${data.features.length}`;
-  alertsDisplay.appendChild(summary);
+  alertDisplay.appendChild(summary);
 
   const list = document.createElement("ul");
 
@@ -55,5 +55,5 @@ button.addEventListener("click", function(){
     list.appendChild(li);
   });
 
-  alertsDisplay.appendChild(list);
+  alertDisplay.appendChild(list);
 }
