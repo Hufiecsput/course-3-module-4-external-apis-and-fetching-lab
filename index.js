@@ -5,7 +5,7 @@ const weatherApi = "https://api.weather.gov/alerts/active?area="
 
 const input = document.getElementById("state-input");
 const button = document.getElementById("fetch-alerts");
-const alertsDisplay = document.getElementById("alerts-display");
+const displayAlerts = document.getElementById("alerts-display");
 const errorDiv = document.getElementById("error-message");
 
 button.addEventListener("click", function(){
@@ -40,16 +40,20 @@ button.addEventListener("click", function(){
     }
   }
 
-  function displayAlerts(data){
+ function displayAlerts(data) {
   alertsDisplay.innerHTML = "";
-    summary.textContent = `${data.title}: ${data.features.length}`;
-    display.appendChild(summary);
 
-    const summary = document.createElement("ul");
-    data.features.forEach(function (alert){
-      const li = document.createElement("li");
-      li.textContent = alert.properties.headline;
-      FileList.appendChild(li);
-    });
-    display.appendChild(list);
-  }
+  const summary = document.createElement("h2");
+  summary.textContent = `${data.title}: ${data.features.length}`;
+  alertsDisplay.appendChild(summary);
+
+  const list = document.createElement("ul");
+
+  data.features.forEach(function (alert) {
+    const li = document.createElement("li");
+    li.textContent = alert.properties.headline;
+    list.appendChild(li);
+  });
+
+  alertsDisplay.appendChild(list);
+}
