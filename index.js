@@ -4,16 +4,39 @@ const weatherApi = "https://api.weather.gov/alerts/active?area="
 // Your code here!
 
 const input = document.getElementById("state-input");
-const button = document.getElementById("fetch -alerts");
-const display = document.getElementById("alert-display");
-const error = document.getElementById("error-message");
+const button = document.getElementById("fetch-alerts");
+const display = document.getElementById("alerts-display");
+const errorDiv = document.getElementById("error-message");
 
 button.addEventListener("click", function(){
-  const state = input.ariaValueMax.trim.toUppercase();
+  const state = input.value.trim().toUppercase();
   if(!state) {
-    error.textContent = "Enter abbriviated name:"
-    error.classList.remove("hidden");
+    errorDiv.textContent = "Enter abbriviated name:"
+    errorDiv.classList.remove("hidden");
     return;
   }
-  fetchWeatherAlerts(states);
+  fetchWeatherAlerts(state);
   });
+  
+  async function fetchWeatherAlerts(state){
+
+    try {
+
+       const response = await fetch(`https://api.weather.gov/alerts/active?area=${state}`);
+ 
+        if (!response.ok){
+          throw new Error ("An error occured.")
+        }
+         
+        const data = await response.json();
+        errorDiv.classList.add("hidden");
+        errorDiv.textContent = "";
+        display(data);
+        input.value ="";
+
+    } catch (error) {
+      error.textContent = error.message;
+      error.classList.remove("hidden");
+
+    }
+  }
