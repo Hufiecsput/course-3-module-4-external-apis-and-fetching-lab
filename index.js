@@ -5,11 +5,11 @@ const weatherApi = "https://api.weather.gov/alerts/active?area="
 
 const input = document.getElementById("state-input");
 const button = document.getElementById("fetch-alerts");
-const display = document.getElementById("alerts-display");
+const displayAlerts = document.getElementById("alerts-display");
 const errorDiv = document.getElementById("error-message");
 
 button.addEventListener("click", function(){
-  const state = input.value.trim().toUppercase();
+  const state = input.value.trim().toUpperCase();
   if(!state) {
     errorDiv.textContent = "Enter abbriviated name:"
     errorDiv.classList.remove("hidden");
@@ -31,12 +31,12 @@ button.addEventListener("click", function(){
         const data = await response.json();
         errorDiv.classList.add("hidden");
         errorDiv.textContent = "";
-        display(data);
+        displayAlerts(data);
         input.value ="";
 
     } catch (error) {
-      error.textContent = error.message;
-      error.classList.remove("hidden");
+      errorDiv.textContent = error.message;
+      errorDiv.classList.remove("hidden");
 
     }
   }
@@ -46,7 +46,7 @@ button.addEventListener("click", function(){
     summary.textContent = `${data.title}: ${data.features.length}`;
     display.appendChild(summary);
 
-    const summary = document.createElement(ul);
+    const summary = document.createElement("ul");
     data.features.forEach(function (alert){
       const li = document.createElement("li");
       li.textContent = alert.propertise.headline;
