@@ -10,5 +10,10 @@ const error = document.getElementById("error-message");
 
 button.addEventListener("click", function(){
   const state = input.ariaValueMax.trim.toUppercase();
-  
-});
+  if(!state) {
+    error.textContent = "Enter abbriviated name:"
+    error.classList.remove("hidden");
+    return;
+  }
+  fetchWeatherAlerts(states);
+  });
