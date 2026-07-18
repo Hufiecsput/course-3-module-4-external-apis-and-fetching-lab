@@ -40,3 +40,14 @@ button.addEventListener("click", function(){
 
     }
   }
+
+  function displayAlerts(data){
+    display.innerHTML = "";
+    summary.textContent = `${data.title}: ${data.features.length}`;
+    display.appendChild(summary);
+
+    const summary = document.createElement(ul);
+    data.features.forEach(function (alert){
+
+    })
+  }
